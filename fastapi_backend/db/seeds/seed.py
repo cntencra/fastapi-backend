@@ -1,8 +1,9 @@
-from fastapi_backend.db.psql_connection import  get_conn 
+from fastapi_backend.db.db_manager import  DBManager
 from fastapi_backend.schemas.seed_models import Bubble, Visit, Pest, Data, BackgroundImage, Settings
 from typing import List
 
 async def run_seed(
+        db_manager: DBManager,
         bubbles: List[Bubble],
         visits: List[Visit],
         pests: List[Pest],
@@ -11,7 +12,7 @@ async def run_seed(
         settings: List[Settings]
     ):
 
-    async with  get_conn() as conn:
+    async with  db_manager.get_conn() as conn:
         async with conn.cursor() as cur:
             await cur.execute("""   
                 DROP TABLE IF EXISTS backgroundimages;
