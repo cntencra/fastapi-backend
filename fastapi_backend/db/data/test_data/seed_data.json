@@ -1,0 +1,43 @@
+{
+  "bubbles": [
+    { "label": "Test Bubble 1", "location_x": 0, "location_y": 0 },
+    { "label": "Test Bubble 2", "location_x": 200, "location_y": 0 },
+    { "label": "Test Bubble 3", "location_x": 0, "location_y": 150 },
+    { "label": "Test Bubble 4", "location_x": 200, "location_y": 150 }
+  ],
+  "visits": [
+    { "visit_name": "Test Visit 1", "visit_date": "2022-03-01T10:00:00", "pest_id": 1 },
+    { "visit_name": "Test Visit 2", "visit_date": "2022-09-15T14:30:00", "pest_id": 1 },
+    { "visit_name": "Test Visit 3", "visit_date": "2023-03-01T10:00:00", "pest_id": 2 },
+    { "visit_name": "Test Visit 4", "visit_date": "2023-09-15T14:30:00", "pest_id": 2 }
+  ],
+  "pests": [
+    { "pest_name": "Test Pest Alpha" },
+    { "pest_name": "Test Pest Beta" }
+  ],
+  "data": [
+    { "bubble_id": 1, "visit_id": 1, "value": 10 },
+    { "bubble_id": 2, "visit_id": 1, "value": 5 },
+    { "bubble_id": 3, "visit_id": 1, "value": 2 },
+    { "bubble_id": 4, "visit_id": 1, "value": 0 },
+    { "bubble_id": 1, "visit_id": 2, "value": 0 },
+    { "bubble_id": 2, "visit_id": 2, "value": 10 },
+    { "bubble_id": 3, "visit_id": 2, "value": 5 },
+    { "bubble_id": 4, "visit_id": 2, "value": 2 },
+    { "bubble_id": 1, "visit_id": 3, "value": 2 },
+    { "bubble_id": 2, "visit_id": 3, "value": 0 },
+    { "bubble_id": 3, "visit_id": 3, "value": 10 },
+    { "bubble_id": 4, "visit_id": 3, "value": 5 },
+    { "bubble_id": 1, "visit_id": 4, "value": 5 },
+    { "bubble_id": 2, "visit_id": 4, "value": 2 },
+    { "bubble_id": 3, "visit_id": 4, "value": 0 },
+    { "bubble_id": 4, "visit_id": 4, "value": 10 }
+  ],
+  "backgroundimages": [
+    { "image_url": "https://example.com/test_image_a.jpg" },
+    { "image_url": "https://example.com/test_image_b.jpg" }
+  ],
+  "settings": [
+    { "no_colors": 5, "bubble_size_min": 10, "bubble_size_max": 50 }
+  ]
+}
