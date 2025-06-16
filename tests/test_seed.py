@@ -22,6 +22,5 @@ async def test_tables_exists( db_manager: DBManager, table_name: str):
         """, (table_name,))
       
             exists = await cur.fetchone()
-
             assert exists is not None, "Query returned no rows"
             assert exists[0], f"Table '{table_name}' does not exist."
