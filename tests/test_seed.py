@@ -1,5 +1,5 @@
 import pytest
-from fastapi_backend.db.psql_connection import get_conn
+from fastapi_backend.db.db_manager import DBManager
 
 
 @pytest.mark.parametrize("table_name", [
@@ -11,8 +11,8 @@ from fastapi_backend.db.psql_connection import get_conn
     "settings"
 ])
 @pytest.mark.asyncio
-async def test_tables_exists(table_name):
-    async with get_conn() as conn:
+async def test_tables_exists( db_manager: DBManager, table_name: str):
+    async with db_manager.get_conn() as conn:
         async with conn.cursor() as cur:
             await cur.execute("""
             SELECT EXISTS (
