@@ -12,9 +12,10 @@ async def db_manager():
     os.environ["ENV"] = "test"
     manager = DBManager()
     await manager.open_pool()
+    print(f"🔗 {os.environ['ENV'].capitalize()} Database connection pool opened.")
     seed_data = load_seed_data(test_data_path)
-    await run_seed(manager, **seed_data.model_dump())
-    print("✅ Database seeded.")
+    await run_seed(manager, seed_data)
+    print(f"✅ {os.environ['ENV'].capitalize()} Database seeded.")
     yield manager
     await manager.close_pool()
-    print("🧹 Pool closed.")
+    print(f"\n🧹 {os.environ['ENV'].capitalize()} Pool closed.")
