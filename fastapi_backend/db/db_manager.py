@@ -14,7 +14,7 @@ class DBManager:
         load_dotenv(env_file)
 
         self._pg_db = os.getenv("PGDATABASE")
-        print(f"{env_mode} mode, Connected to database: {self._pg_db}")
+        print(f"\n🔗 Using database: {self._pg_db}")
 
         self._async_pool: AsyncConnectionPool | None = None
 

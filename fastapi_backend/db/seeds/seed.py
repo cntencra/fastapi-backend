@@ -1,15 +1,9 @@
 from fastapi_backend.db.db_manager import  DBManager
-from fastapi_backend.schemas.seed_models import Bubble, Visit, Pest, Data, BackgroundImage, Settings
-from typing import List
+from fastapi_backend.schemas.seed_models import SeedData
 
 async def run_seed(
         db_manager: DBManager,
-        bubbles: List[Bubble],
-        visits: List[Visit],
-        pests: List[Pest],
-        data: List[Data],
-        backgroundimages: List[BackgroundImage],
-        settings: List[Settings]
+        seed_data: SeedData
     ):
 
     async with  db_manager.get_conn() as conn:
@@ -72,3 +66,28 @@ async def run_seed(
                 bubble_size_max INT
                 )
             """)
+            await cur.executemany("""
+                INSERT INTO bubbles (label, location_x, location_y)
+                VALUES (%s, %s, %s)
+            """, [(bubble.label, bubble.location_x, bubble.location_y) for bubble in seed_data.bubbles])
+            await cur.executemany("""
+                INSERT INTO pests (pest_name)
+                VALUES (%s)
+            """, [(pest.pest_name,) for pest in seed_data.pests])
+            await cur.executemany("""
+                INSERT INTO visits (pest_id, visit_name, visit_date)
+                VALUES (%s, %s, %s)
+            """, [(visit.pest_id, visit.visit_name, visit.visit_date) for visit in seed_data.visits])
+            await cur.executemany("""
+                INSERT INTO data (bubble_id, visit_id, value)
+                VALUES (%s, %s, %s)
+            """, [(datum.bubble_id, datum.visit_id, datum.value) for datum in seed_data.data])
+            await cur.executemany("""
+                INSERT INTO backgroundimages (image_url)
+                VALUES (%s)
+            """, [(image.image_url,) for image in seed_data.backgroundimages])
+            await cur.executemany("""
+                INSERT INTO settings (no_colors, bubble_size_min, bubble_size_max)
+                VALUES (%s, %s, %s)
+            """, [(setting.no_colors, setting.bubble_size_min, setting.bubble_size_max) for setting in seed_data.settings])
+            await conn.commit()
