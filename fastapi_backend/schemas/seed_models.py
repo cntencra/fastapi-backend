@@ -15,7 +15,6 @@ class Pest(BaseModel):
 
 
 class Visit(BaseModel):
-    pest_id: int
     visit_name: Optional[str]
     visit_date: datetime
 
@@ -24,6 +23,7 @@ class Data(BaseModel):
     bubble_id: int
     visit_id: Optional[int]
     value: Optional[int]
+    pest_id: int
 
 
 class BackgroundImage(BaseModel):
