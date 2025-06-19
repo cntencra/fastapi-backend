@@ -1,5 +1,5 @@
 import pytest
-from fastapi_backend.db.db_manager import DBManager
+from fastapi_backend.db import db_manager, DBManager
 from psycopg.rows import dict_row
 from psycopg import sql
 
@@ -13,8 +13,8 @@ from psycopg import sql
     "settings"
 ])
 @pytest.mark.asyncio
-async def test_tables_exists( db_manager: DBManager, table_name: str):
-    async with db_manager.get_conn() as conn:
+async def test_tables_exists(db_manager_fixture: DBManager, table_name: str):
+    async with db_manager_fixture.get_conn() as conn:
         async with conn.cursor() as cur:
             await cur.execute("""
             SELECT EXISTS (
@@ -51,8 +51,8 @@ async def test_tables_exists( db_manager: DBManager, table_name: str):
 
 ])
 @pytest.mark.asyncio
-async def test_table_column_data_type(db_manager: DBManager, table_name: str, column_name: str, data_type:str):
-    async with db_manager.get_conn() as conn:
+async def test_table_column_data_type(db_manager_fixture: DBManager, table_name: str, column_name: str, data_type:str):
+    async with db_manager_fixture.get_conn() as conn:
         async with conn.cursor(row_factory=dict_row) as cur:
             await cur.execute("""
             SELECT *
@@ -76,8 +76,8 @@ async def test_table_column_data_type(db_manager: DBManager, table_name: str, co
     ("settings", ["setting_id", "no_colors", "bubble_size_min", "bubble_size_max"],1)
 ])
 @pytest.mark.asyncio
-async def test_table_has_data(db_manager: DBManager, table_name: str, columns: list, test_data_length: int):
-    async with db_manager.get_conn() as conn:
+async def test_table_has_data(db_manager_fixture: DBManager, table_name: str, columns: list, test_data_length: int):
+    async with db_manager_fixture.get_conn() as conn:
         async with conn.cursor(row_factory=dict_row) as cur:
             query = sql.SQL("SELECT * FROM {}").format(sql.Identifier(table_name))
             await cur.execute(query)
