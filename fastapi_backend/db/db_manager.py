@@ -6,21 +6,33 @@ from typing import AsyncGenerator
 from contextlib import asynccontextmanager
 
 class DBManager:
+    _instance = None
+
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super(DBManager, cls).__new__(cls)
+        return cls._instance
 
     def __init__ (self):
+        if hasattr(self, "_initialized") and self._initialized:
+            return 
+        
+        self._initialized = True
+
         env_mode = os.getenv("ENV", "dev")
         env_file= f".env.{env_mode}"
 
         load_dotenv(env_file)
 
         self._pg_db = os.getenv("PGDATABASE")
-        print(f"\n🔗 Using database: {self._pg_db}")
+        
 
         self._async_pool: AsyncConnectionPool | None = None
 
     async def open_pool(self):
         if self._async_pool is None:
             self._async_pool = AsyncConnectionPool(open=False)
+            print(f"\n🔗 Using database: {self._pg_db}")
             await self._async_pool.open()
 
     async def close_pool(self):

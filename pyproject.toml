@@ -19,7 +19,7 @@ dependencies = [
 packages = [{ include = "fastapi_backend" }]
 
 [tool.poetry.scripts]
-seed-db = "fastapi_backend.seeds.seed:run_seed"
+seed-db = "fastapi_backend.db.seeds.run_seed:main"
 
 
 [tool.poetry.group.dev.dependencies]

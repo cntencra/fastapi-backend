@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from fastapi_backend.schemas.seed_models import SeedData
+from fastapi_backend.db.schemas.seed_models import SeedData
 
 def load_seed_data(filepath: Path ) -> SeedData:
     with open(filepath) as f:
