@@ -35,13 +35,13 @@ async def test_tables_exists( db_manager: DBManager, table_name: str):
     ,("pests","pest_id","integer")
     ,("pests","pest_name","character varying")
     ,("visits","visit_id","integer")
-    ,("visits","pest_id","integer")
     ,("visits","visit_name","character varying")
     ,("visits","visit_date","timestamp without time zone") 
     ,("data","data_id","integer")
     ,("data","bubble_id","integer")
     ,("data","visit_id","integer")
     ,("data","value","integer")
+    ,("data","pest_id","integer")
     ,("backgroundimages","image_id","integer")
     ,("backgroundimages","image_url","text")
     ,("settings","setting_id","integer")
@@ -69,9 +69,9 @@ async def test_table_column_data_type(db_manager: DBManager, table_name: str, co
 
 @pytest.mark.parametrize("table_name, columns, test_data_length", [
     ("bubbles", ["bubble_id", "label", "location_x", "location_y"],4),
-    ("visits", ["visit_id", "pest_id", "visit_name", "visit_date"], 4),
+    ("visits", ["visit_id", "visit_name", "visit_date"], 4),
     ("pests", ["pest_id", "pest_name"],2),
-    ("data", ["data_id", "bubble_id", "visit_id", "value"],16),
+    ("data", ["data_id", "bubble_id", "visit_id", "value", "pest_id"],32),
     ("backgroundimages", ["image_id", "image_url"],2),
     ("settings", ["setting_id", "no_colors", "bubble_size_min", "bubble_size_max"],1)
 ])
