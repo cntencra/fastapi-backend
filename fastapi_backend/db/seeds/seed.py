@@ -1,7 +1,7 @@
 from fastapi_backend.db.db_manager import  DBManager
 from fastapi_backend.schemas.seed_models import SeedData
 
-async def run_seed(
+async def seed(
         db_manager: DBManager,
         seed_data: SeedData
     ):
@@ -36,7 +36,6 @@ async def run_seed(
                 CREATE TABLE visits
                 (
                 visit_id SERIAL PRIMARY KEY NOT NULL,
-                pest_id INT REFERENCES pests(pest_id),
                 visit_name VARCHAR(200),
                 visit_date TIMESTAMP NOT NULL
                 )
@@ -47,8 +46,9 @@ async def run_seed(
                 data_id SERIAL PRIMARY KEY NOT NULL,
                 bubble_id INT REFERENCES bubbles(bubble_id) NOT NULL,
                 visit_id INT REFERENCES visits(visit_id),
-                value INT
-                )
+                value INT,
+                pest_id INT REFERENCES pests(pest_id)
+            )
             """)
             await cur.execute("""
                 CREATE TABLE backgroundimages
@@ -75,13 +75,13 @@ async def run_seed(
                 VALUES (%s)
             """, [(pest.pest_name,) for pest in seed_data.pests])
             await cur.executemany("""
-                INSERT INTO visits (pest_id, visit_name, visit_date)
-                VALUES (%s, %s, %s)
-            """, [(visit.pest_id, visit.visit_name, visit.visit_date) for visit in seed_data.visits])
+                INSERT INTO visits (visit_name, visit_date)
+                VALUES (%s, %s)
+            """, [(visit.visit_name, visit.visit_date) for visit in seed_data.visits])
             await cur.executemany("""
-                INSERT INTO data (bubble_id, visit_id, value)
-                VALUES (%s, %s, %s)
-            """, [(datum.bubble_id, datum.visit_id, datum.value) for datum in seed_data.data])
+                INSERT INTO data (bubble_id, visit_id, value, pest_id)
+                VALUES (%s, %s, %s, %s)
+            """, [(datum.bubble_id, datum.visit_id, datum.value, datum.pest_id ) for datum in seed_data.data])
             await cur.executemany("""
                 INSERT INTO backgroundimages (image_url)
                 VALUES (%s)
