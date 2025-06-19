@@ -4,7 +4,7 @@ import pytest_asyncio
 from fastapi_backend.db.db_manager import DBManager
 from fastapi_backend.utils.path_utils import get_project_root
 from fastapi_backend.db.utils.seed_utils import load_seed_data
-from fastapi_backend.db.seeds.seed import run_seed
+from fastapi_backend.db.seeds.seed import seed
 
 @pytest_asyncio.fixture(scope="session")
 async def db_manager():
@@ -14,7 +14,7 @@ async def db_manager():
     await manager.open_pool()
     print(f"🔗 {os.environ['ENV'].capitalize()} Database connection pool opened.")
     seed_data = load_seed_data(test_data_path)
-    await run_seed(manager, seed_data)
+    await seed(manager, seed_data)
     print(f"✅ {os.environ['ENV'].capitalize()} Database seeded.")
     yield manager
     await manager.close_pool()
