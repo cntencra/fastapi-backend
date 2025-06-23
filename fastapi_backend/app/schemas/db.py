@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Bubble(BaseModel):
+class BubbleDB(BaseModel):
     bubble_id: int
     label: str
     location_x: int

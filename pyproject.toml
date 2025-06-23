@@ -12,7 +12,6 @@ dependencies = [
     "uvicorn[standard] (>=0.34.3,<0.35.0)",
     "psycopg[binary,pool] (>=3.2.9,<4.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
-    "pytest-asyncio (>=1.0.0,<2.0.0)"
 ]
 
 [tool.poetry]
@@ -25,6 +24,7 @@ seed-db = "fastapi_backend.db.seeds.run_seed:main"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.0"
 pytest-env = "^1.1.5"
+asgi-lifespan = "^2.1.0"
 
 [tool.pytest.ini_options]
 env = ["ENV=test"]
