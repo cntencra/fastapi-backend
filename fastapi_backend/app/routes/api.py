@@ -1,7 +1,9 @@
 from fastapi import APIRouter
+from fastapi_backend.app.controllers.bubble_controllers import BubbleController
+from fastapi_backend.app.schemas.db import BubbleDB
 
 router = APIRouter()
 
-@router.get("/bubbles")
+@router.get("/bubbles", response_model=list[BubbleDB])   
 async def get_bubbles():
-    return [ { "label": "1", "location_x": 50, "location_y": 50 }]
+    return await BubbleController.list_bubbles()
