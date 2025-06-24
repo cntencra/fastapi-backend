@@ -6,4 +6,5 @@ class BubbleController:
     @staticmethod
     async def list_bubbles() -> List[BubbleDB]:
         bubble_model = BubbleModel()
-        return await bubble_model.get_all()
+        bubbles  = await bubble_model.get_all()
+        return bubbles
