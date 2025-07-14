@@ -6,12 +6,6 @@ from typing import AsyncGenerator
 from contextlib import asynccontextmanager
 
 class DBManager:
-    _instance = None
-
-    def __new__(cls):
-        if not cls._instance:
-            cls._instance = super(DBManager, cls).__new__(cls)
-        return cls._instance
 
     def __init__ (self):
         if hasattr(self, "_initialized") and self._initialized:
