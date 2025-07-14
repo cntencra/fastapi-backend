@@ -1,9 +1,6 @@
 import pytest
 
 from httpx import AsyncClient
-from pydantic import parse_obj_as
-
-from fastapi_backend.app.schemas.db import BubbleDB
 
 pytestmark = pytest.mark.anyio
 
