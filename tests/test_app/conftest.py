@@ -37,5 +37,5 @@ async def test_app() -> AsyncGenerator[FastAPI, None]:
 async def async_client(test_app : FastAPI) -> AsyncGenerator[AsyncClient, None]:    
     transport = ASGITransport(app=test_app)
     async with AsyncClient(transport=transport, base_url="http://test/api") as client:
-        print("\n🔗 AsyncClient created for testing.")
+        print("🔗 AsyncClient created for testing.")
         yield client

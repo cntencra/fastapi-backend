@@ -6,12 +6,6 @@ from typing import AsyncGenerator
 from contextlib import asynccontextmanager
 
 class DBManager:
-    _instance = None
-
-    def __new__(cls):
-        if not cls._instance:
-            cls._instance = super(DBManager, cls).__new__(cls)
-        return cls._instance
 
     def __init__ (self):
         if hasattr(self, "_initialized") and self._initialized:
@@ -25,20 +19,20 @@ class DBManager:
         load_dotenv(env_file)
 
         self._pg_db = os.getenv("PGDATABASE")
-        print(f"\n🔗 Using database: {self._pg_db}")
+        print(f"🔗 Using database: {self._pg_db}")
 
         self._async_pool: AsyncConnectionPool | None = None
 
     async def open_pool(self):
         if self._async_pool is None:
             self._async_pool = AsyncConnectionPool(open=False)
-            print(f"\n🔗 {self._env_mode.capitalize()} Database connection pool opened.")
+            print(f"🔗 {self._env_mode.capitalize()} Database connection pool opened.")
             await self._async_pool.open()
 
     async def close_pool(self):
         if self._async_pool is not None:
             await self._async_pool.close()
-            print(f"\n🧹 {self._env_mode.capitalize()} Database connection pool closed.")
+            print(f"🧹 {self._env_mode.capitalize()} Database connection pool closed.")
             self._async_pool = None
 
     @asynccontextmanager
