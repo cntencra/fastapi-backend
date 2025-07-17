@@ -4,42 +4,42 @@ from datetime import datetime
 from typing import List
 
 
-class Bubble(BaseModel):
+class BubbleDB(BaseModel):
     label: str
     location_x: int
     location_y: int
 
 
-class Pest(BaseModel):
+class PestDB(BaseModel):
     pest_name: str
 
 
-class Visit(BaseModel):
+class VisitDB(BaseModel):
     visit_name: Optional[str]
     visit_date: datetime
 
 
-class Data(BaseModel):
+class DataDB(BaseModel):
     bubble_id: int
     visit_id: Optional[int]
     value: Optional[int]
     pest_id: int
 
 
-class BackgroundImage(BaseModel):
+class BackgroundImageDB(BaseModel):
     image_url: str
 
 
-class Settings(BaseModel):
+class SettingsDB(BaseModel):
     no_colors: int
     bubble_size_min: Optional[int]
     bubble_size_max: Optional[int]
 
 
-class SeedData(BaseModel):
-    bubbles: List[Bubble]
-    visits: List[Visit]
-    pests: List[Pest]
-    data: List[Data]
-    backgroundimages: List[BackgroundImage]
-    settings: List[Settings]
+class SeedDataDB(BaseModel):
+    bubbles: List[BubbleDB]
+    visits: List[VisitDB]
+    pests: List[PestDB]
+    data: List[DataDB]
+    backgroundimages: List[BackgroundImageDB]
+    settings: List[SettingsDB]
