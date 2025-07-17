@@ -1,9 +1,9 @@
 from fastapi_backend.db.db_manager import  DBManager
-from fastapi_backend.db.schemas.seed_models import SeedData
+from fastapi_backend.db.schemas.seed_models import SeedDataDB
 
 async def seed(
         db_manager: DBManager,
-        seed_data: SeedData
+        seed_data: SeedDataDB
     ):
 
     async with  db_manager.get_conn() as conn:
