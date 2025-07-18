@@ -4,7 +4,7 @@ from fastapi_backend.app.schemas.database import Pest
 
 class PestModel():
     @staticmethod
-    async def get_all() -> List[Pest]:
+    async def fetch_pests() -> List[Pest]:
         async with db_manager.get_conn() as conn:
             async with conn.cursor() as cur:
                 await cur.execute("SELECT pest_id, pest_name FROM pests")
