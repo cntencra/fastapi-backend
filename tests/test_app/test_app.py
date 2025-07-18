@@ -32,21 +32,21 @@ async def test_get_visits_by_pest_id(async_client: AsyncClient):
     assert response.status_code == 200
     visits = [1, 2, 3, 4]
     for visit in response.json():
-        assert visit["visit_id"] in visits
-        visits.remove(visit["visit_id"])
+        assert visit in visits
+        visits.remove(visit)
 
 async def test_get_visits_by_pest_id_not_found(async_client: AsyncClient):
     response = await async_client.get("/visits/pest/9999999")
     assert response.status_code == 404
-    assert response.json() == {"detail": "Pest not found"}
+    assert response.json() == {"detail": "Pest with ID 9999999 not found"}
 
 async def test_get_visits_by_pest_id_invalid(async_client: AsyncClient):
     response = await async_client.get("/visits/pest/invalid")
     assert response.status_code == 422
-    assert response.json() == {"detail": "Invalid pest ID format"}
+    assert response.json()['detail'][0]['msg'] =='Input should be a valid integer, unable to parse string as an integer'
 
-async def test_get_data_by_visit_id(async_client: AsyncClient):
-    response = await async_client.get("/visits/1")
+async def test_get_data_by_visit_and_pest_id(async_client: AsyncClient):
+    response = await async_client.get("/visit/1/pest/1")
     assert response.status_code == 200
     bubble_ids = [1, 2, 3, 4]
     for data in response.json():
@@ -57,11 +57,21 @@ async def test_get_data_by_visit_id(async_client: AsyncClient):
         assert data["pest_id"] == 1
 
 async def test_get_data_by_visit_id_not_found(async_client: AsyncClient):
-    response = await async_client.get("/visits/9999999")
+    response = await async_client.get("/visit/99999999/pest/1")
     assert response.status_code == 404
-    assert response.json() == {"detail": "Visit not found"}
+    assert response.json() == {"detail": "visit_id 99999999 or pest_id 1 not found"}
 
-async def test_get_data_by_visit_id_invalid(async_client: AsyncClient):
-    response = await async_client.get("/visits/invalid")
-    assert response.status_code == 422
-    assert response.json() == {"detail": "Invalid visit ID format"}
+async def test_get_data_by_pest_id_not_found(async_client: AsyncClient):
+    response = await async_client.get("/visit/1/pest/99999999")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "visit_id 1 or pest_id 99999999 not found"}
+
+async def test_get_data_by_visit_and_pest_id_invalid(async_client: AsyncClient):
+    response = await async_client.get("/visits/invalid/pest/1")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Not Found"}
+
+async def test_get_data_by_visit_and_visit_id_invalid(async_client: AsyncClient):
+    response = await async_client.get("/visits/1/pest/invalid")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Not Found"}
