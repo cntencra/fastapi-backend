@@ -5,7 +5,7 @@ from fastapi_backend.app.models.pest_models import PestModel
 
 class PestController:
     @staticmethod
-    async def list_pests() -> List[Pest]:
+    async def get_pests() -> List[Pest]:
         pest_model = PestModel()
-        pests = await pest_model.get_all()
+        pests = await pest_model.fetch_pests()
         return pests
