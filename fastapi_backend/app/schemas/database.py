@@ -16,3 +16,10 @@ class Visit(BaseModel):
 class Pest(BaseModel):
     pest_id: int
     pest_name: str
+
+class Data(BaseModel):
+    data_id: int
+    bubble_id: int
+    visit_id: Optional[int]
+    value: Optional[int]
+    pest_id: int
