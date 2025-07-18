@@ -5,7 +5,7 @@ from fastapi_backend.app.schemas.database import Bubble
 
 class BubbleModel():
     @staticmethod
-    async def get_all() -> List[Bubble]:
+    async def fetch_bubbles() -> List[Bubble]:
         async with db_manager.get_conn() as conn:
             async with conn.cursor() as cur:
                 await cur.execute("SELECT bubble_id, label, location_x, location_y FROM bubbles")

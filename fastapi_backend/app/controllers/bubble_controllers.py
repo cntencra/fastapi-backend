@@ -4,7 +4,7 @@ from fastapi_backend.app.schemas.database import Bubble
 
 class BubbleController:
     @staticmethod
-    async def list_bubbles() -> List[Bubble]:
+    async def get_bubbles() -> List[Bubble]:
         bubble_model = BubbleModel()
-        bubbles  = await bubble_model.get_all()
+        bubbles  = await bubble_model.fetch_bubbles()
         return bubbles
