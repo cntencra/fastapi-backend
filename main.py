@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from fastapi_backend.db import db_manager
+from fastapi_backend.db.db_manager import db_manager
 from fastapi_backend.app.routes import api
 
 @asynccontextmanager

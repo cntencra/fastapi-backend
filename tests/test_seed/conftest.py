@@ -2,7 +2,7 @@ import os
 import pytest
 from typing import AsyncGenerator
 
-from fastapi_backend.db import db_manager, DBManager
+from fastapi_backend.db.db_manager import db_manager, _DBManager
 from fastapi_backend.utils.path_utils import get_project_root
 from fastapi_backend.db.utils.seed_utils import load_seed_data
 from fastapi_backend.db.seeds.seed import seed
@@ -11,9 +11,10 @@ from fastapi_backend.db.seeds.seed import seed
 # This fixture will be used to seed the database with test data before running tests.
 
 @pytest.fixture(scope="module")
-async def db_manager_fixture() -> AsyncGenerator[DBManager, None]: 
+async def db_manager_fixture() -> AsyncGenerator[_DBManager, None]: 
     test_data_path = get_project_root() / "fastapi_backend" / "db" / "data" / "test_data" / "seed_data.json"
     os.environ["ENV"] = "test"
+    await db_manager.init_env()
     await db_manager.open_pool()
     seed_data = load_seed_data(test_data_path)
     await seed(db_manager, seed_data)

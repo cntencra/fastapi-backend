@@ -1,4 +1,7 @@
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 # fastapi-backend
+This is the backend for my pest data visualisation
+Written using FastAPI and poetry for environment and version control
 
 ## Clone the repo
 ```bash
@@ -29,7 +32,7 @@ poetry install
 poetry run seed-db
 ```
 
-[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+
 
 
 ## run tests
