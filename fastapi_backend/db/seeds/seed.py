@@ -1,8 +1,8 @@
-from fastapi_backend.db.db_manager import  DBManager
+from fastapi_backend.db.db_manager import  _DBManager
 from fastapi_backend.db.schemas.seed_models import SeedDataDB
 
 async def seed(
-        db_manager: DBManager,
+        db_manager: _DBManager,
         seed_data: SeedDataDB
     ):
 

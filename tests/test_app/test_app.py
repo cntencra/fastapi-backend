@@ -75,3 +75,8 @@ async def test_get_data_by_visit_and_visit_id_invalid(async_client: AsyncClient)
     response = await async_client.get("/visits/1/pest/invalid")
     assert response.status_code == 404
     assert response.json() == {"detail": "Not Found"}
+
+async def test_get_settings(async_client: AsyncClient):
+    response = await async_client.get("/settings/1")
+    assert response.status_code == 200
+    

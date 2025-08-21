@@ -1,5 +1,5 @@
 from typing import List
-from fastapi_backend.db import db_manager
+from fastapi_backend.db.db_manager import db_manager
 from fastapi_backend.app.schemas.database import Pest
 
 class PestModel():
